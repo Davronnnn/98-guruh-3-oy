@@ -1,3 +1,12 @@
-body{
-    
+.active-text {
+	color: green;
+	font-size: 2rem;
+	font-weight: bold;
+	font-style: italic;
+}
+.active-text2 {
+	color: red;
+	font-size: 2rem;
+	font-weight: bold;
+	font-style: italic;
 }
