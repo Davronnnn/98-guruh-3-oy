@@ -1,4 +1,4 @@
-.active-text {
+/* .active-text {
 	color: green;
 	font-size: 2rem;
 	font-weight: bold;
@@ -9,4 +9,30 @@
 	font-size: 2rem;
 	font-weight: bold;
 	font-style: italic;
+}
+.form {
+	margin: 60px 0;
+}
+.form label {
+	position: relative;
+}
+
+.message {
+	position: absolute;
+	top: 100%;
+	font-size: 12px;
+} */
+
+.circle {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	padding: 10px;
+}
+.circle-1 {
+	background-color: red;
+	margin: 0 auto;
+}
+.circle-2 {
+	background-color: blue;
 }

@@ -15,24 +15,49 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<div class="container">
-			<form class="form w-25 mt-5">
-				<label for="age" class="form-label">
-					Yoshingizni kiriting
-					<input
-						class="form-control bg-secondary text-white"
-						type="number"
-						id="age"
-					/>
+		<div class="container m-5">
+			<h2 class="text-center">Kim birinchi borishga</h2>
+			<form
+				class="form w-25 mt-5 d-flex align-items-center justify-content-center mx-auto gap-3"
+			>
+				<label for="space" class="form-label">
+					Masofa
+					<input class="form-control" type="text" id="space" />
+					<div class="message"></div>
 				</label>
 				<button class="form-control my-3 btn btn-outline-dark" id="btn">
-					click
+					Hisobla
 				</button>
 			</form>
-			<p id="result">hello title</p>
+			<div class="box row">
+				<div class="col">
+					<div class="card text-center p-3">
+						<h2 class="card-title">Piyoda</h2>
+						<p class="person-result">N soat</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card text-center p-3">
+						<h2 class="card-title">Velosiped</h2>
+						<p class="bicycle-result">N soat</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card text-center p-3">
+						<h2 class="card-title">Mashina</h2>
+						<p class="car-result">N soat</p>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card text-center p-3">
+						<h2 class="card-title">Samalyot</h2>
+						<p class="plane-result">N soat</p>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<script src="./js/main.js"></script>
-		<!-- <script src="./js/home-work.js"></script> -->
+		<!-- <script src="./js/main.js"></script> -->
+		
 	</body>
 </html>
