@@ -1,38 +1,24 @@
-/* .active-text {
-	color: green;
-	font-size: 2rem;
-	font-weight: bold;
-	font-style: italic;
+.light {
+	background-color: #fff;
+	color: #000;
 }
-.active-text2 {
-	color: red;
-	font-size: 2rem;
-	font-weight: bold;
-	font-style: italic;
-}
-.form {
-	margin: 60px 0;
-}
-.form label {
-	position: relative;
+.light * {
+	color: #000;
 }
 
-.message {
-	position: absolute;
-	top: 100%;
-	font-size: 12px;
-} */
+.light .active {
+	color: #fff;
+	background-color: #000;
+}
+.dark .active {
+	color: #000;
+	background-color: #fff;
+}
 
-.circle {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	padding: 10px;
+.dark {
+	background-color: #000;
+	color: #fff;
 }
-.circle-1 {
-	background-color: red;
-	margin: 0 auto;
-}
-.circle-2 {
-	background-color: blue;
+.dark * {
+	color: #fff;
 }
