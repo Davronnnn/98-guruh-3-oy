@@ -3,20 +3,26 @@ const ul = document.querySelector('#todos');
 const errSpan = document.querySelector('#span');
 
 const themeBtn = document.querySelector('#btn-theme');
-const todos = ["Kitob o'qish", "Futbol ko'rish", 'Bozorga borish'];
-const names = ['awdas', 'ASdasd', 'Asdasd'];
+
 
 function renderTodos(array) {
 	ul.textContent = '';
+
 	for (let i = 0; i < array.length; i++) {
 		const newLi = document.createElement('li');
 		newLi.className = 'list-group-item d-flex justify-content-between';
 		newLi.innerHTML = `
-						<h3>${array[i]}</h3>
+		<div>			
+						<h3 style='${array[i].completed ? 'text-decoration:line-through' : ''}'>${
+			array[i].title
+		}</h3>
+			<p class="">${array[i].date}  </p>
+		</div>
 						<div>
 							<button class="btn btn-info text-white">
 								Completed
 							</button>
+
 							<button class="btn btn-danger">Delete</button>
 						</div>
 	`;
@@ -32,6 +38,8 @@ elForm.addEventListener('submit', function (evt) {
 
 	let input = evt.target.todo;
 
+	let date = evt.target.date;
+
 	// form validation
 	if (input.value === '') {
 		span.style.display = 'block';
@@ -43,16 +51,18 @@ elForm.addEventListener('submit', function (evt) {
 	input.className = 'form-control';
 
 	// add todo to array
+	const newTodo = {
+		title: input.value,
+		completed: false,
+		date: date.value,
+	};
 
-	todos.push(input.value);
+	todos.push(newTodo);
 
 	renderTodos(todos);
+
 	elForm.reset();
 });
-
-
-
-
 
 let theme = 'light';
 
@@ -68,3 +78,7 @@ themeBtn.addEventListener('click', function () {
 		themeBtn.textContent = 'Kunduzgi rejim';
 	}
 });
+
+// array
+// function
+// object
