@@ -1,58 +1,61 @@
-const elForm = document.querySelector('#add-form');
-const ul = document.querySelector('#todos');
-const errSpan = document.querySelector('#span');
+const elForm = findElement('#add-form');
+const ul = findElement('#todos');
+const errSpan = findElement('#span');
+const elSearch = findElement('#search');
+const elSelect = findElement('#select');
+const themeBtn = findElement('#btn-theme');
 
-const themeBtn = document.querySelector('#btn-theme');
+const allBtn = findElement('#all');
+const completedBtn = findElement('#completed');
+const unCompletedBtn = findElement('#uncompleted');
 
-function generateDate(time) {
-	const date = new Date(time);
-	const year = date.getFullYear();
-	let month = date.getMonth() + 1;
-	let hour = date.getHours();
-	let minutes = date.getMinutes();
-	let day = date.getDate();
+const todoTemplate = findElement('#todo-template');
 
-	if (day < 10) {
-		day = '0' + day;
-	}
-	if (month < 10) {
-		month = '0' + month;
-	}
-	if (hour < 10) {
-		hour = '0' + hour;
-	}
-	if (minutes < 10) {
-		minutes = '0' + minutes;
-	}
+completedBtn.addEventListener('click', () => {
+	const result = todos.filter((todo) => {
+		if (todo.completed === true) {
+			return todo;
+		}
+	});
 
-	return `${hour}:${minutes} / ${day}.${month}.${year}`;
-}
+	renderTodos(result);
+});
+unCompletedBtn.addEventListener('click', () => {
+	const result = todos.filter((todo) => {
+		if (todo.completed === false) {
+			return todo;
+		}
+	});
+
+	renderTodos(result);
+});
+allBtn.addEventListener('click', () => {
+	renderTodos(todos);
+});
 
 function renderTodos(array) {
 	ul.textContent = '';
 
-	array.forEach(function (todo) {
-		const resultDate = generateDate(todo.date);
-		const newLi = document.createElement('li');
-		newLi.className = 'list-group-item d-flex justify-content-between';
-		newLi.innerHTML = `
-		<div>			
-						<h3 style='${todo.completed ? 'text-decoration:line-through' : ''}'>${
-			todo.title
-		}</h3>
-			<p class=""> 🗓️ ${resultDate} </p>
-		</div>
-						<div>
-							<button data-id=${todo.id} class="complete-btn btn btn-info text-white">
-								Completed
-							</button>
-							<button data-id=${todo.id} class="btn btn-primary">Edit</button>
-							<button data-id=${todo.id}  class="btn btn-danger">Delete</button>
-						</div>
-	`;
+	const fragment = document.createDocumentFragment();
 
-		ul.appendChild(newLi);
+	array.forEach(function (todo) {
+		const template = todoTemplate.content.cloneNode(true);
+		const title = findElement('.title1', template);
+		const date = findElement('.date', template);
+		const editBtn = findElement('.btn-primary', template);
+		const deleteBtn = findElement('.btn-danger', template);
+		const completeBtn = findElement('.btn-info', template);
+
+		editBtn.dataset.id = todo.id;
+		deleteBtn.dataset.id = todo.id;
+		completeBtn.dataset.id = todo.id;
+
+		title.textContent = todo.title;
+		date.textContent += generateDate(todo.date);
+		fragment.appendChild(template);
 	});
+
+	ul.appendChild(fragment);
 }
 
 renderTodos(todos);
@@ -108,33 +111,92 @@ themeBtn.addEventListener('click', function () {
 ul.addEventListener('click', function (evt) {
 	const element = evt.target;
 
+	// complete
 	if (element.className.includes('complete-btn')) {
-		const id = Number(element.dataset.id);
+		const inputId = Number(element.dataset.id);
 
-		for (let i = 0; i < todos.length; i++) {
-			const todo = todos[i];
-
-			if (todo.id === id) {
+		todos.forEach((todo) => {
+			if (todo.id === inputId) {
 				todo.completed = !todo.completed;
 			}
-		}
+		});
 
 		renderTodos(todos);
 	}
 
+	// delete
 	if (element.className.includes('btn-danger')) {
 		const id = Number(element.dataset.id);
 
-		const result = [];
-		for (let i = 0; i < todos.length; i++) {
-			const todo = todos[i];
-
+		const result2 = todos.filter((todo) => {
 			if (todo.id !== id) {
-				result.push(todo);
+				return todo;
 			}
-		}
+		});
+		todos = result2;
 
-		todos = result;
-		renderTodos(todos);
+		renderTodos(result2);
+	}
+
+	// edit
+	if (element.className.includes('btn-primary')) {
+		const id = Number(element.dataset.id);
+
+		const editTodoInput = document.querySelector('#edit-todo');
+		const editDateInput = document.querySelector('#edit-date');
+		const editDateText = document.querySelector('.edit-date-text');
+		const editBtn = document.querySelector('#edit-btn');
+
+		todos.forEach((todo) => {
+			if (todo.id === id) {
+				editTodoInput.value = todo.title;
+				editDateText.textContent = generateDate(todo.date);
+
+				editBtn.addEventListener('click', () => {
+					const title = editTodoInput.value;
+					const date = editDateInput.value;
+					todo.title = title;
+					todo.date = date;
+
+					renderTodos(todos);
+				});
+			}
+		});
 	}
 });
+
+// search
+elSearch.addEventListener('change', () => {
+	const inputValue = elSearch.value;
+
+	let searchArray = todos.filter((todo) => {
+		if (todo.title.toLowerCase().includes(inputValue.toLowerCase())) {
+			return todo;
+		}
+	});
+
+	renderTodos(searchArray);
+});
+
+// filter
+elSelect.addEventListener('change', () => {
+	if (elSelect.value === 'all') {
+		renderTodos(todos);
+		return;
+	}
+	let resultArray = todos.filter((todo) => {
+		if (elSelect.value == String(todo.completed)) {
+			return todo;
+		}
+	});
+
+	films.forEach((film) => {
+		film.genres.forEach((genre) => {
+			console.log(genre, elSelect.value);
+		});
+	});
+
+	renderTodos(resultArray);
+});
+
+AOS.init();
